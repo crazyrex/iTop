@@ -35,6 +35,10 @@ require_once('dbunionsearch.class.php');
  *
  * @copyright   Copyright (C) 2015-2017 Combodo SARL
  * @license     http://opensource.org/licenses/AGPL-3.0
+ *
+ *
+ * @package     iTopORM
+ *
  */
  
 abstract class DBSearch

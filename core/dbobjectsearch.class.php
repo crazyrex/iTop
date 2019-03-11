@@ -17,9 +17,14 @@
 //   along with iTop. If not, see <http://www.gnu.org/licenses/>
 //
 
-// Dev hack for disabling the some query build optimizations (Folding/Merging)
+/** @internal Dev hack for disabling the some query build optimizations (Folding/Merging) */
 define('ENABLE_OPT', true);
 
+/**
+ * Class DBObjectSearch
+ *
+ * @package     iTopORM
+ */
 class DBObjectSearch extends DBSearch
 {
 	private $m_aClasses; // queried classes (alias => class name), the first item is the class corresponding to this filter (the rest is coming from subfilters)

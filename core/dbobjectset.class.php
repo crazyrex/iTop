@@ -1445,6 +1445,8 @@ class DBObjectSet implements iDBObjectSetIterator
 
 /**
  * Helper function to perform a custom sort of a hash array
+ *
+ * @internal
  */
 function HashCountComparison($a, $b) // Sort descending on 'count'
 {
@@ -1464,6 +1466,11 @@ function HashCountComparison($a, $b) // Sort descending on 'count'
  * LIMITATIONS:
  *  - only DBObjectSets with one column (i.e. one class of object selected) are supported
  *  - the first set must be the one loaded from the database
+ *
+ * @internal
+ *
+ * @package iTopORM
+ *
  */
 class DBObjectSetComparator
 {
@@ -1507,6 +1514,8 @@ class DBObjectSetComparator
 
     /**
      * Builds the lists of fingerprints and initializes internal structures, if it was not already done
+     *
+     * @internal
      *
      * @throws \CoreException
      */
@@ -1557,6 +1566,9 @@ class DBObjectSetComparator
 
     /**
      * Tells if the sets are equivalent or not. Returns as soon as the first difference is found.
+     *
+     * @internal
+     *
      * @return boolean true if the set have an equivalent content, false otherwise
      *
      * @throws \CoreException
@@ -1603,8 +1615,10 @@ class DBObjectSetComparator
     /**
      * Get the list of differences between the two sets. In ordeer to write back into the database only the minimum changes
      * THE FIRST SET MUST BE THE ONE LOADED FROM THE DATABASE
-     * Returns a hash: 'added' => DBObject(s), 'removed' => DBObject(s), 'modified' => DBObjects(s)
-     * @return array
+     *
+     * @internal
+     *
+     * @return array 'added' => DBObject(s), 'removed' => DBObject(s), 'modified' => DBObjects(s)
      *
      * @throws \Exception
      * @throws \CoreException
@@ -1659,7 +1673,9 @@ class DBObjectSetComparator
 	}
 
     /**
-     * Helpr to clone (in memory) an object and to apply to it the values taken from a second object
+     * Helper to clone (in memory) an object and to apply to it the values taken from a second object
+     *
+     * @internal
      *
      * @param \DBObject $oObjToClone
      * @param \DBObject $oObjWithValues
