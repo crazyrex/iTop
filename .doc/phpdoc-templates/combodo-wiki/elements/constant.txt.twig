@@ -1,0 +1,45 @@
+{% block constant %}
+=== {{ constant.name }} ===
+{{ constant.summary }}
+{{ constant.description }}
+
+{% if constant.deprecated %}
+=== Deprecated ===
+{{ constant.tags.deprecated[0].description }}
+{% endif %}
+
+{% if (node.parent is null) %}
+File {{ node.path }}
+{#<dd><a href="{{ node.file|route('url') }}"><div class="path-wrapper">{{ node.path }}</div></a></dd>#}
+{% endif %}
+{% if (node.parent is not null and constant.parent.fullyQualifiedStructuralElementName != node.fullyQualifiedStructuralElementName) %}
+Inherited from
+[[api-compiled:objects-manipulation:classes:{{ constant.parent }}|{{ constant.parent }}]]
+{% endif %}
+
+{% for tagName,tags in node.tags if tagName in ['link', 'see'] %}
+{% if loop.first %}
+== See also ==
+{% endif %}
+{% for tag in tags %}
+{% if loop.length > 1 %}  * {% endif %}{{ tag.reference ?: tag.link }} : {{ tag.description ?: tag.reference }}
+{% endfor %}
+{% endfor %}
+
+
+{% for tagName,tags in method.tags if tagName in ['uses'] %}
+{% if loop.first %}
+== Uses ==
+{% endif %}
+{% for tag in tags %}{{ tag.reference }}{% endfor %}
+{% endfor %}
+
+
+===== Tags =====
+^ {% for tagName,tags in node.tags if tagName not in ['link', 'see', 'var', 'deprecated', 'uses'] %}{{ tagName }} ^ {% endfor %}
+
+| {% for tagName,tags in node.tags if tagName not in ['link', 'see', 'var', 'deprecated', 'uses'] %}{% for tag in tags %}{{ tag.description}} {% endfor %}   |
+{% endfor %}
+
+:?: end of {{ constant.name }} :?:
+{% endblock %}

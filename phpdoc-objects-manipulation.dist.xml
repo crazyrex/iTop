@@ -5,6 +5,10 @@
     /**
     The documentation of this file can be found here : https://docs.phpdoc.org/references/configuration.html
     it has to be completed by the CLI parameters documentation which is more comprehensive: https://docs.phpdoc.org/references/commands/project_run.html#usage
+
+    usage:
+    vendor/bin/phpdoc -c phpdoc-objects-manipulation.dist.xml
+
     */
   -->
 
@@ -29,9 +33,13 @@
 
   <transformations>
 
+
     <!--<template name=".doc/phpdoc-templates/combodo"/>-->
+    <template name=".doc/phpdoc-templates/combodo-wiki"/>
+
+    <!--<template name="clean"/>-->
     <!--<template name="zend"/>-->
-    <template name="responsive-twig"/>
+    <!--<template name="responsive-twig"/>-->
     <!--<template name="checkstyle"/>-->
   </transformations>
 

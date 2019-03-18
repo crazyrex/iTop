@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+  <author>Bruno DA SILVA</author>
+  <email>contact [at] combodo.com</email>
+  <version>1.0.0</version>
+  <copyright>Combodo 2018</copyright>
+  <description><![CDATA[
+
+      Forked from the clean theme of https://github.com/phpDocumentor/phpDocumentor2 provided under the MIT licence.
+      The original work is copyright "Mike van Riel".
+
+      ------------------------------------------------------------------------------------------------------------------
+
+      To improve performance you can add the following to your .htaccess:
+
+      <ifModule mod_deflate.c>
+          <filesMatch "\.(js|css|html)$">
+              SetOutputFilter DEFLATE
+          </filesMatch>
+      </ifModule>
+  ]]></description>
+  <transformations>
+    <transformation query="copy" writer="FileIo" source="templates/combodo-wiki/htaccess.dist" artifact=".htaccess"/>
+    <transformation query="copy" writer="FileIo" source="templates/combodo-wiki/images" artifact="images"/>
+    <transformation query="copy" writer="FileIo" source="templates/combodo-wiki/css" artifact="css"/>
+    <transformation query="copy" writer="FileIo" source="templates/combodo-wiki/js" artifact="js"/>
+    <transformation query="copy" writer="FileIo" source="templates/combodo-wiki/font" artifact="font"/>
+
+    <transformation writer="twig" query="namespace" source="templates/combodo-wiki/namespace.txt.twig" artifact="index.txt"/>
+    <!--<transformation writer="twig" query="indexes.namespaces" source="templates/combodo-wiki/namespace.html.twig" />-->
+    <transformation writer="twig" query="indexes.classes" source="templates/combodo-wiki/class.txt.twig" artifact="{{path}}.txt"/>
+    <transformation writer="twig" query="indexes.interfaces" source="templates/combodo-wiki/interface.txt.twig" />
+    <transformation writer="twig" query="indexes.traits" source="templates/combodo-wiki/class.txt.twig"  />
+    <transformation writer="twig" query="files" source="templates/combodo-wiki/file.txt.twig" />
+    <!--<transformation writer="twig" query="files" source="templates/combodo-wiki/file.source.txt.twig" artifact="files/{{path}}.txt"/>-->
+    <!--<transformation writer="twig" source="templates/combodo-wiki/reports/markers.html.twig" artifact="reports/markers.html"/>-->
+    <!--<transformation writer="twig" source="templates/combodo-wiki/reports/errors.html.twig" artifact="reports/errors.html"/>-->
+    <transformation writer="twig" source="templates/combodo-wiki/reports/deprecated.html.twig" artifact="reports/deprecated.txt"/>
+    <transformation writer="twig" source="templates/combodo-wiki/graphs/class.html.twig" artifact="graphs/class.txt"/>
+    
+    <transformation writer="Graph" source="Class" artifact="graphs/classes.svg" />
+  </transformations>
+</template>

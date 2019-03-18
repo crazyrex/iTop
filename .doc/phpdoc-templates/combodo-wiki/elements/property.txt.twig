@@ -1,0 +1,43 @@
+{% block property %}
+
+==== ${{ property.name }} ====
+**{% if property.deprecated %}deprecated{% endif %}**
+
+//{{ property.summary|raw }}//
+//{{ property.description }}//
+{% if property.var.0.description %}//{{ property.var.0.description|raw }}//{% endif %}
+
+<code php>{{ property.visibility }}  ${{ property.name }}{% if property.types %} : {{ property.types|join('|')|raw }}{% endif %}</code>
+
+
+{#{% if property.types %}#}
+{#== Type ==#}
+{#{% for type in property.types  %}#}
+{#{% if loop.length > 1 %}  * {% endif %}{{ type|raw }} : {{ type.description|raw }}#}
+{#{% endfor %}#}
+{#{{ property.types|route|join('|')|raw }}#}
+{#{% endif %}#}
+
+
+{% if property.deprecated %}
+== Deprecated ==
+  {{ property.tags.deprecated[0].description }}
+{% endif %}
+
+{% if (node.parent is not null and property.parent.fullyQualifiedStructuralElementName != node.fullyQualifiedStructuralElementName) %}
+{#<dd><a href="{{ property.parent|route('url') }}"><div class="path-wrapper">{{ property.parent.fullyQualifiedStructuralElementName }}</div></a></dd>#}
+Inherited from
+[[api-compiled:objects-manipulation:classes:{{ property.parent }}|{{ property.parent }}]]
+{% endif %}
+
+{% include 'includes/see-also.txt.twig' with {node:property, title_level: '=='} %}
+
+
+{% include 'includes/uses.txt.twig' with {node:property, title_level: ''} %}
+
+{% include 'includes/see-also.txt.twig' with {node:property, title_level: '==', blacklist:  ['link', 'see', 'access', 'var', 'deprecated', 'uses']} %}
+
+
+----
+
+{% endblock %}

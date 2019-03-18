@@ -1,0 +1,71 @@
+{% extends 'layout.txt.twig' %}
+
+{% block content %}
+{% set namespace = project.namespace %}
+{{ block('sidebarNamespaces') }}
+     
+                        {#<a href="" class="pull-left">&laquo; NamespaceAssembler</a>#}
+{{ node.parent|route|raw }}
+                        {#<a href="" class="pull-right">ClassAssembler &raquo;</a>#}
+====== {{ node.parent.fullyQualifiedStructuralElementName }}{{ node.name }} ======
+
+{% if node.children|length > 0 %}
+=====Namespaces=====
+    {% for namespace in node.children|sort_asc %}
+        <tr>
+            <td>{{ namespace|route('class:short')|raw }}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
+
+{% if node.traits|length > 0 %}
+===== Traits =====
+    {% for trait in node.traits|sort_asc %}
+        <tr>
+            <td>{{ trait|route('class:short')|raw }}</td>
+            <td><em>{{ trait.summary }}</em></td>
+        </tr>
+    {% endfor %}
+{% endif %}
+
+{% if node.interfaces|length > 0 %}
+===== Interfaces =====
+    {% for interface in node.interfaces|sort_asc %}
+        <tr>
+            <td>{{ interface|route('class:short')|raw }}</td>
+            <td><em>{{ interface.summary }}</em></td>
+        </tr>
+    {% endfor %}
+{% endif %}
+
+{% if node.classes|length > 0 %}
+===== Classes =====
+{% for class in node.classes|sort_asc %}
+{#{{ class|route('class:short')|raw }}#}
+
+{% set className = class|trim('\\', 'left') %}
+==== {{ className }} ====
+
+{{ class.summary }}
+[[api-compiled:objects-manipulation:{{ className }}.class.php|More informations]]
+{% endfor %}
+{% endif %}
+
+
+
+{% if node.constants|length > 0 %}
+===== Constants =====
+{% for constant in node.constants|sort_asc %}
+    {{ block('constant') }}
+{% endfor %}
+{% endif %}
+
+{% if node.functions|length > 0 %}
+===== Functions =====
+
+{% for method in node.functions|sort_asc %}
+    {{ block('method') }}
+{% endfor %}
+{% endif %}
+
+{% endblock %}
