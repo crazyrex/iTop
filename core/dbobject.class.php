@@ -81,6 +81,7 @@ abstract class DBObject implements iDisplay
 	/** @var bool true IF the object is mapped to a DB record */
 	protected $m_bIsInDB = false;
 	protected $m_iKey = null;
+	/** @var array key: attcode, value: corresponding current value (in memory, before persisting object) */
 	private $m_aCurrValues = array();
 	protected $m_aOrigValues = array();
 
@@ -117,11 +118,32 @@ abstract class DBObject implements iDisplay
 	protected $m_aCheckWarnings = null;
 	protected $m_aDeleteIssues = null;
 
-	private $m_bFullyLoaded = false; // Compound objects can be partially loaded
-	private $m_aLoadedAtt = array(); // Compound objects can be partially loaded, array of sAttCode
-	protected $m_aTouchedAtt = array(); // list of (potentially) modified sAttCodes
-	protected $m_aModifiedAtt = array(); // real modification status: for each attCode can be: unset => don't know, true => modified, false => not modified (the same value as the original value was set)
-	protected $m_aSynchroData = null; // Set of Synch data related to this object
+	/** @var bool Compound objects can be partially loaded */
+	private $m_bFullyLoaded = false;
+	/** @var array Compound objects can be partially loaded, array of sAttCode */
+	private $m_aLoadedAtt = array();
+	/** @var array list of (potentially) modified sAttCodes */
+	protected $m_aTouchedAtt = array();
+	/**
+	 * @var array real modification status<br>
+	 *         for each attCode can be:
+	 * <ul>
+	 * <li>unset => don't know,
+	 * <li>true => modified,
+	 * <li>false => not modified (the same value as the original value was set)
+	 * </ul>
+	 */
+	protected $m_aModifiedAtt = array();
+	/**
+	 * @var array Set of Synch data related to this object
+	 * <ul>
+	 * <li>key: sourceId
+	 * <li>value : array of source, attributes, replica
+	 * </ul>
+	 *
+	 * @see #GetSynchroData
+	 */
+	protected $m_aSynchroData = null;
 	protected $m_sHighlightCode = null;
 	protected $m_aCallbacks = array();
 
